@@ -138,11 +138,11 @@ char * next_word(char ** ptp){
     }
     first_word[i] = '\0';
     return first_word;
-    /*notice- i moved to be the end of first_word ,ptp moved and "kitses" the first_word!!!!!!*/
+    /*notice- i moved to be the end of first_word ,ptp moved and cut of the first_word!*/
 }
 /**
-*stops when it meets ',' or end of line or space...+ assume that we have something until the end
-*otherwise we will think that its internal error coz we will got null.assume that we dont have spaces in beginins
+*stops when it meets ',' or end of line or space.... assume that we dont have just white spaces until the end of line
+*assume that we dont have spaces in beginins
 **/
 char * next_param(char ** ptp){
 	int i =0;
@@ -158,7 +158,7 @@ char * next_param(char ** ptp){
     }
     param[i] = '\0';
     return param;
-    /*notice- ptp moved and "kitses" the next param!!!!!!*/
+    /*notice- ptp moved and cut of the next_param*/
 }
 
 int figure_addressing_methods(char * opernad,struct symbols_linked_list * list){
