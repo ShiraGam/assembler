@@ -78,11 +78,15 @@ void print_internal_error(int error) {
     /* Print the error message */
     printf("~~ERROR:~~ | %s\n",  errors[error]);
 }
+
+
 void print_warning(int warning,struct file_status * file) {
    /* Print the file name, assembly line number and the warning message */
     printf("~~Warning:~~ in %s at line:%d | %s\n", 
      file->name, file->line, errors[warning]);
 }
+
+
 void print_external_error(int error, struct file_status * file) {
     /* Print the file name, assembly line number and the error message */
     printf("~~ERROR:~~ in %s at line:%d | there is error: %s\n", 
