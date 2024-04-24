@@ -74,11 +74,50 @@ void coding_operand(struct file_status * file, errors_status * errors,DC_IC * lo
  */
 void coding_immediate(struct file_status * file, errors_status * errors,DC_IC * locations,date_structures * structures,char *operand,int prev_ic );
 
-/*get register assume that its correct*/
+/**
+ * @brief Encodes the register value and updates the instructions array.
+ * 
+ * This function encodes the register value and updates the instructions array accordingly.
+ * It assumes that the register value provided is correct.
+ * 
+ * @param file Pointer to the file_status struct containing file-related information.
+ * @param errors Pointer to the errors_status struct to handle errors.
+ * @param locations Pointer to the DC_IC struct containing instruction and data counts.
+ * @param structures Pointer to the date_structures struct containing symbol information.
+ * @param register_value Pointer to the string containing the register value.
+ * @param source_operand Flag indicating whether the register is for the source operand (1) or destination operand (0).
+ * @param prev_ic The previous instruction count.
+ */
 void coding_register(struct file_status * file,errors_status * errors,DC_IC * locations,date_structures * structures,char* register_value,int source_operand,int prev_ic );
-
+/**
+ * @brief Encodes the index operand and updates the instructions array.
+ * 
+ * This function encodes the index operand and updates the instructions array accordingly.
+ * It handles both direct and indexed addressing modes.
+ * 
+ * @param file Pointer to the file_status struct containing file-related information.
+ * @param operand Pointer to the string containing the index operand.
+ * @param locations Pointer to the DC_IC struct containing instruction and data counts.
+ * @param structures Pointer to the date_structures struct containing symbol information.
+ * @param errors Pointer to the errors_status struct to handle errors.
+ * @param file_ex Pointer to the external file pointer for writing external references.
+ * @param prev_ic The previous instruction count.
+ */
 void coding_by_index(struct file_status * file,char *operand,DC_IC * locations,date_structures * structures,errors_status * errors,FILE * file_ex,int prev_ic );
-
+/**
+ * @brief Encodes the direct operand and updates the instructions array.
+ * 
+ * This function encodes the direct operand and updates the instructions array accordingly.
+ * It handles both direct addressing mode and external references.
+ * 
+ * @param file Pointer to the file_status struct containing file-related information.
+ * @param errors Pointer to the errors_status struct to handle errors.
+ * @param operand Pointer to the string containing the direct operand.
+ * @param locations Pointer to the DC_IC struct containing instruction and data counts.
+ * @param structures Pointer to the date_structures struct containing symbol information.
+ * @param file_ex Pointer to the external file pointer for writing external references.
+ * @param prev_ic The previous instruction count.
+ */
 void coding_direct(struct file_status * file,errors_status * errors,char* operand,DC_IC * locations,date_structures * structures,FILE * file_ex,int prev_ic );
  
 /**
