@@ -124,7 +124,7 @@ struct symbols_node* send_to_function(int is_label,char ** ptp,struct file_statu
         return NULL;
     }
     word_length=strlen(first_word);
-/*coz maybe its just the EOF*/
+    /*coz maybe first word is just the EOF*/
     if (word_length < 1){
 	  return NULL;
      }
@@ -264,7 +264,7 @@ struct symbols_node* data(char ** ptp ,struct file_status * file, errors_status 
             }
         }
     }
-    /*it represent how much we grow here*/
+    /*it represent how much DC grew here*/
     node->size= (locations->DC)-(node->value);
     free(param);
     return node;   
@@ -283,14 +283,14 @@ struct symbols_node* string(char ** ptp ,struct file_status * file, errors_statu
     node->line=file->line;
 
     if(skip_spaces(ptp) == FALSE){
-        /* it means we have no strinf at all*/
+        /* it means we have no string at all*/
         print_external_error(missing_parameter,file);
         errors->external_error_exist=TRUE;
         free(node);
         return NULL;
     }
     if ((**ptp) != '"'){
-        /*we dont get "  at first*/
+        /*there is no "  at first*/
         print_external_error(string_with_invalid_begin,file);
         errors->external_error_exist=TRUE;
         free(node);
@@ -308,7 +308,7 @@ struct symbols_node* string(char ** ptp ,struct file_status * file, errors_statu
         insert_data((int)(**ptp), file,errors,locations,structures);
         (*ptp)++;
     }
-    /*we are out of while because we reach \n or " with space after it*/
+    /*we are out of the loop while because we reach \n or " with space after it*/
     if (**ptp != '"'){
         /*we out of the while not because we reaches " ,but because we reached end of line */
         print_external_error(missing_ending_char,file);
@@ -328,16 +328,16 @@ struct symbols_node* string(char ** ptp ,struct file_status * file, errors_statu
     node->size= (locations->DC)-(node->value);
     return node;
 }
-/*its also grow the DC itself*/
+/*its also increace the DC itself*/
 void insert_data(int value,  struct file_status * file, errors_status * errors,DC_IC * locations,date_structures * structures ){
-    /*for size i want DC + 1*/
+    /*for size I want DC + 1 for the 0 in the end of string*/
     structures->data_array= (bit_field *)realloc(structures->data_array,(locations->DC +1)*sizeof(bit_field));
     if (structures->data_array == NULL){
         print_internal_error(memory_failed);
         errors->internal_error_exist=TRUE;
     }
 	else{
-    /*for index i want DC- coz indexes begin in 0*/
+    /*for index I want DC- coz indexes begin in 0*/
     (structures->data_array)[locations->DC].data= value;
     locations->DC=locations->DC+1;
 	}
@@ -352,7 +352,7 @@ struct symbols_node* label(char * label,char ** ptp ,struct file_status * file, 
         errors->external_error_exist=TRUE;
         return NULL;
     }
-    /*skip coz send to fun get only without spaces. if skip return false it means we have nothing after*/
+    /*we need to skip spaces coz send_to_fun get only without spaces. if skip return false it means we have nothing after*/
     if(skip_spaces(ptp) == FALSE){
         print_external_error(empty_label,file);
         errors->external_error_exist=TRUE;
