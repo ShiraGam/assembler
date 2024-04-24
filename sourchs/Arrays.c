@@ -9,6 +9,9 @@ void set_bit(bit_field *bitfield, int pos, int value) {
         bitfield->data &= ~(1 << pos);
 }
 
+
+
+
 void print_bits(bit_field *array, int size) {
 	int i = 0,j;
     for (; i < size; ++i) {
