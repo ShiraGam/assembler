@@ -19,14 +19,16 @@ void printing(date_structures * structures ,errors_status * errors,DC_IC * locat
 	printf("instuction array\n");
 	print_bits(structures->instructions_array,locations->IC);
 }
+
+
+
 int fill_and_check(char * buffer,FILE * file){
     char c;
     int index = 0;
     c=fgetc(file);
 	while(isspace(c) != 0){
-	c=fgetc(file);
-
-}
+		c=fgetc(file);
+	}
     for(;index<MAX_LINE_LENGTH &&c!='\n'&&c!=EOF ;index++){
 	  buffer[index]=c;
 	  c=fgetc(file);
@@ -38,6 +40,9 @@ int fill_and_check(char * buffer,FILE * file){
      }
      return FALSE;
 }
+
+
+
 char *my_strdup( char *src) {
     int length = strlen(src) + 1; /* +1 for null terminator*/
     char *dst = (char *)malloc(length); /* Allocate memory*/
@@ -68,15 +73,14 @@ int valid_end(char *line, int index,struct file_status * file, int *error_exists
     return TRUE; /* Only whitespace from the given index*/
 }
 
+
+
 int legal_word(char *str,int is_define, struct macro_linked_list *list,struct file_status * file) {
 
     if (!isalpha(*str)){ /* Check if the first character is alphabetic*/
         print_external_error(illegal_name, file);
         return FALSE;
     }
-	
-
-
     if ( reserved_words(str)){ /* Check if the word is a reserved word*/
         print_external_error(reserved_word, file);
         return FALSE;
@@ -90,7 +94,6 @@ printf("\n not define");
 	}
         str++;
     }}
-
     if (macro_name_appeared(list, str) ){ /* Check if the macro name appeared*/
 	printf("\n not define");
         print_external_error(defined_macro,file);
@@ -99,6 +102,8 @@ printf("\n not define");
 
     return TRUE;
 }
+
+
 
 
 void free_strings(int num_strings, ...) {
@@ -114,6 +119,8 @@ int i = 0;
     va_end(args);
 }
 
+
+
 int skip_spaces(char ** ptp){
 	while (**ptp != '\0') {
         	if (!isspace(**ptp)) { /* Check if the character is not whitespace*/
@@ -123,6 +130,9 @@ int skip_spaces(char ** ptp){
         }
 	return FALSE;/*if we got here we came to '\0' so there is nothing in the line*/	
 }
+
+
+
 /*assume that we dont have spaces in beginins. stops in space*/
 char * next_word(char ** ptp){
 	int i = 0;
@@ -140,6 +150,9 @@ char * next_word(char ** ptp){
     return first_word;
     /*notice- i moved to be the end of first_word ,ptp moved and cut of the first_word!*/
 }
+
+
+
 /**
 *stops when it meets ',' or end of line or space.... assume that we dont have just white spaces until the end of line
 *assume that we dont have spaces in beginins
@@ -160,6 +173,9 @@ char * next_param(char ** ptp){
     return param;
     /*notice- ptp moved and cut of the next_param*/
 }
+
+
+
 
 int figure_addressing_methods(char * opernad,struct symbols_linked_list * list){
     /*Index indicate the addressing methods (respectively) 
