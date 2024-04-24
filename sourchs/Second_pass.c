@@ -14,14 +14,9 @@
 #include <stdio.h>
 #include <string.h>
 #include "Macro.h"
-int is_empty_with_eof( char *line) ;
 void second_pass_main(date_structures * structures, errors_status * errors,DC_IC * locations,struct file_status * file,FILE * file_am)
 {
-printf("\n in second pass!!!!!!!!!!!!!!!!!!!!!!!");
-printf("\n external is : %d",EXTERNAL);
-printing( structures ,errors,locations);
-
-	int prev_ic = locations->IC,found_EOF=FALSE,i=0;
+	int prev_ic = locations->IC,found_EOF=FALSE;
 	char  *buffer = NULL,*file_name_with_ext=NULL,*copy=NULL;
 	char ** ptp;
 	FILE *file_ex;
@@ -39,7 +34,7 @@ print_external_error(too_many_words,file);
 
 	
 
-	file->name[strlen(file->name) - 3 ] = '\0';
+	file->name[strlen(file->name) - REMOVE_ENDING] = '\0';
 	file_name_with_ext  = (char*)malloc((MAX_NAME_LENGTH)*sizeof(char));  
 	if (file_name_with_ext == NULL ) {
 		print_internal_error(memory_failed);
@@ -61,7 +56,6 @@ print_external_error(too_many_words,file);
 		return;
 	}
 
-printf("\n  		open file ex ");
 
 	while (!found_EOF)
 	{
@@ -85,32 +79,25 @@ printf("\n  		open file ex ");
 			break;
 		/*coding the line to the ic struct*/
 		send_to_function_pass_two(ptp,file, errors, locations,structures,file_ex,prev_ic);
-			printf("\nthere is error ? line is %s external error is %d intenal error is %d !!!!!!!!!\n locations->IC %d \n ",buffer,errors->external_error_exist,errors->internal_error_exist,locations->IC);
 		if (errors->internal_error_exist == TRUE){
-			printf("\n there is internal error@@@@@@");
 			close_ex_file(file_ex,errors,file_name_with_ext);
 			free_strings(2,buffer,file_name_with_ext);
 			return;}
 
 
 		}
-printf("\n end loop \n");
 
-		if(prev_ic> locations->IC )/*------------------------------------------*/
-		locations->IC ++;
 
-printing( structures ,errors,locations);
+		locations->IC =prev_ic;
+
 		/*No output files are found if there is an error*/
 		if(errors->internal_error_exist || errors->external_error_exist){
-			printf("\n error so cant print ob file ");
 			close_ex_file(file_ex,errors,file_name_with_ext);
 			free_strings(2,buffer,file_name_with_ext);
 			return;
 			}
-printf("\n befor print ob file!!!!!!!!!!!!");
- /*printing( structures ,errors,locations);*/
-		print_ob_file(file,errors,structures,locations,prev_ic);
-printf("\n after print ob file");	
+
+		print_ob_file(file,errors,structures,locations,prev_ic);	
 		if( locations->IC  > 0 || locations->DC  > 0 ){	
 			print_entry(file, errors,structures);
 						}
@@ -133,7 +120,6 @@ void send_to_function_pass_two(char ** ptp,struct file_status * file, errors_sta
 				return;
 			}
 			first_word = next_word(ptp);
-printf("\n first word %s :",first_word);
 
 			word_length=strlen(first_word);
 
@@ -149,7 +135,6 @@ printf("\n first word %s :",first_word);
 
 				/*the first word after tha label*/      
 				first_word = next_word(ptp);
-printf("\n first word %s :",first_word);
 				}
 
 			/*Handled on the first pass*/
@@ -178,9 +163,7 @@ printf("\n first word %s :",first_word);
 
 			else if ((index_of_action=index_action(first_word)) != FICTIVE){
 				/* if its not fictive its action ,we send the index action*/
-printf("\n locations->IC++ %d \n",locations->IC );
 				locations->IC++;/*move to the next word*/
-printf("\n locations->IC++ %d \n",locations->IC );
 				locations->IC++;/*skip coz the first word existsted in the arry*/
 				action_coding(index_of_action,ptp , file,errors,locations,structures,file_ex,prev_ic);
 				
@@ -205,10 +188,9 @@ printf("\n locations->IC++ %d \n",locations->IC );
 				destination_operand=NULL;
 				source_operand=NULL;
 				L= calculate_L_and_check(index_of_action,NO_OPPERAND,NO_OPPERAND);
-printf("no operand at all");
+
 				/*this action gots wrong parameters here*/
 				if (L==FICTIVE){
-printf("no operand at all and need to be more");
 					print_external_error(operand_not_correspond,file);
 					free_strings(2,source_operand,destination_operand);
 					errors->external_error_exist=TRUE;
@@ -228,7 +210,6 @@ locations ->IC --;
 
 			/*there is one oprand*/
 			if(!contains_comma(ptp)){
-printf("there is only one operand");
 			skip_spaces(ptp);
 			source_operand= next_word(ptp);
 			if(skip_spaces(ptp) == FALSE){
@@ -249,7 +230,6 @@ printf("there is only one operand");
 			}}
 
 			else{ 
-printf("\n there is two or more operand operand ");
 				skip_spaces(ptp);
 				source_operand= next_param(ptp);
 				skip_spaces(ptp);
@@ -287,7 +267,6 @@ printf("\n there is two or more operand operand ");
 				coding_operand(file,errors,locations,structures,source_operand,file_ex,TRUE,source_operand_method,prev_ic);
 				/*coding the destination and value target operand*/
 				if(!(destination_operand_method ==REGISTER && source_operand_method ==REGISTER)){
-				printf("\n locations->IC %d \n",locations->IC);
 				locations->IC++;/*registers share one  word */
 				}
 		coding_operand(file,errors,locations,structures,destination_operand,file_ex,FALSE,destination_operand_method,prev_ic);
@@ -320,7 +299,6 @@ printf("\n there is two or more operand operand ");
 			
 			int is_number = TRUE,i=0,operand_value;
 			struct symbols_node* node;
-printf("\n in coding immediate***********");
 			if(*operand == '#'){
 				/*skip the #*/
 				operand++;}
@@ -389,8 +367,6 @@ set_bit_range( file,errors,&(structures->instructions_array)[locations->IC] ,sta
 			struct symbols_node* node_label;
 			struct symbols_node* node_define;
 			/* Find the label name */
-printf("in coding by index ");
-printf("\n external is first  : %d",EXTERNAL);
 			while (operand[i] != '[' && operand[i] != '\0') {
 				if (!isspace(operand[i])) {
 					label_name[j++] = operand[i];
@@ -433,7 +409,6 @@ printf("\n external is first  : %d",EXTERNAL);
 			node_label=get_symbol(structures->symbols_list,label_name);
 			/*if label never been defined*/
 			if (node_label==NULL){
-printf("\n not label 1");
 				errors->external_error_exist=TRUE;
 				print_external_error(not_label,file);
 				return;
@@ -458,7 +433,6 @@ printf("\n not label 1");
 					node_define=get_symbol(structures->symbols_list,index);
 					/*if itsnt define and not number - error */
 					if (node_define==NULL&& !is_number){
-printf("\n not define  2");
 						errors->external_error_exist=TRUE;
 						print_external_error(invalid_index,file);
 						return;
@@ -469,16 +443,11 @@ printf("\n not define  2");
 				is_number = TRUE;
 				index_value = node_define->value;
 			}}
-			printf("in coding by index : label %s ,index %d is_number %d node_label->update_attribute%d\n ",label_name,index_value,is_number,node_label->update_attribute);
-printf("\n external is : %d",EXTERNAL);
 			if((is_number && node_label->update_attribute == EXTERNAL )|| (is_number && index_value <= node_label->size &&node_label->location != MDEFINE) ){
-printf("\n send to be coded");
 				coding_direct(file,errors,label_name,locations,structures,file_ex,prev_ic);
 				locations->IC++;
-				printf("\n locations->IC++ %d \n",locations->IC);
 				coding_immediate(file,errors,locations,structures,index,prev_ic);}
 			else{
-printf("\n ****************************** not send %s %s \n",label_name,index);
 				errors->external_error_exist=TRUE;
 				print_external_error(index_not_exists,file);
 				return;
@@ -502,10 +471,9 @@ printf("\n ****************************** not send %s %s \n",label_name,index);
 				print_external_error(not_label,file);
 				return;
 			}
-printf("\n node-> name : %snode_attribute %d \n", node-> name,node->update_attribute);
 			/*print to extern file*/
 			if(node->update_attribute == EXTERNAL){
-			fprintf(file_ex,"%s\t%d\n",node->name,locations->IC+101);}
+			fprintf(file_ex,"%s\t%d\n",node->name,locations->IC+START_MEMORY);}
 type = 	node->update_attribute;	
 if(type == EXTERNAL)
 {
@@ -547,11 +515,9 @@ int contains_comma(char **ptp) {
 void set_bit_range(struct file_status * file,errors_status * errors,bit_field *bitfield, int start, int end, int value,int prev_ic,int current_ic) {
    int range;
     unsigned int mask, shifted_value;
-printf("\ncurrent_ic : %d prev ic: %d \n",current_ic,prev_ic );
     range = end - start + 1;
    if (range < 0 || range > BITS_PER_ENCODED_WORD   || start> end || prev_ic   <= current_ic) {
         errors->external_error_exist=TRUE;
-printf("\ncurrent_ic : %d prev ic: %d \n",current_ic,prev_ic );
 	return;
     }
 
@@ -570,8 +536,7 @@ printf("\ncurrent_ic : %d prev ic: %d \n",current_ic,prev_ic );
     bitfield->data &= ~mask;
 
     /* Set the bits to the new value */
-    bitfield->data |= shifted_value;
-printf("\n its very well%d \n",current_ic);}
+    bitfield->data |= shifted_value;}
 
 
 		}
@@ -655,7 +620,6 @@ void print_entry(struct file_status * file, errors_status * errors,date_structur
 			/* Print each element of the instructions_array to the file */
 			if(locations->IC < 0 )
 			locations->IC++;
-printf("\n locations->IC++ %d \n",locations->IC);
 			fprintf(file_ob,"  %d %d  \n",locations->IC,locations->DC);
 			print_bits_encoded(file_ob,structures->instructions_array,prev_ic,START_MEMORY);
 			print_bits_encoded(file_ob,structures->data_array,(locations->DC),START_MEMORY+prev_ic);
@@ -677,10 +641,7 @@ void close_ex_file(FILE*file_ex,errors_status * errors,char * file_name_with_ext
 long size;
 if(fseek(file_ex, 0, SEEK_END) == 0){
 	size = ftell(file_ex); /* Get the current position, which is the size of the file*/
-printf("\n size is %d " , size);
 		if(size == 0){
-			
-printf("\n remove file ex !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			if(remove(file_name_with_ext) != FALSE){
 				print_internal_error(remove_fail);
 							fclose(file_ex);
@@ -716,6 +677,5 @@ void print_bits_encoded(FILE *file_ob, bit_field *instructions_array, int array_
 }
 		
 		
-
 
 
