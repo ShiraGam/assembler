@@ -21,6 +21,8 @@ instruction instructions[NUM_ACTIONS] =
         {"rts",{1,1,1,0}, {0, 0, 0, 0,1}, {0, 0, 0, 0,1}},
         {"hlt",{1,1,1,1},{0, 0, 0, 0,1}, {0, 0, 0, 0,1}} };
 
+
+
 void code_opcode(int index_action,DC_IC * locations,date_structures * structures){
 	int index_data=9,index_opcode=0;
 	/*we want to code 4 bits from the 9th bits till the 6th bit ...*/
@@ -31,6 +33,9 @@ void code_opcode(int index_action,DC_IC * locations,date_structures * structures
 		index_data--;
 	}
 }
+
+
+
 /*check that the num of params and their methods sutable to the action. return fictive if not. return L if everything fine*/
 int calculate_L_and_check(int index_action,int destination_operand_method,int source_operand_method){
 	int L=1;/* coz we always have the first word*/
@@ -46,6 +51,9 @@ int calculate_L_and_check(int index_action,int destination_operand_method,int so
 	L += ( calculate(destination_operand_method) + calculate(source_operand_method) );
 	return L;
 }
+
+
+
 /*calculate how mant words the method adds*/
 int calculate(int operand_method){
 	int num=0;
@@ -59,6 +67,9 @@ int calculate(int operand_method){
 	}
 	return num;
 }
+
+
+
 
 /*return the index of the actiin. fictive if its not action*/
 int index_action(char * word){
