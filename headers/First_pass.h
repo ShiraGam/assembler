@@ -13,15 +13,21 @@ typedef struct {
     bit_field * instructions_array;
 } date_structures;
 
+
+
 typedef struct {
     int DC;
     int IC;
 }DC_IC;
 
+
+
 typedef struct {
     int external_error_exist;
     int internal_error_exist;
 }errors_status;
+
+
 
 
 /**
