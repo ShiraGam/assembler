@@ -3,6 +3,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
+
+
 /* Struct for the macro_node */
 struct macro_node {
     char *name;
@@ -15,6 +18,9 @@ struct macro_linked_list {
     struct macro_node *head;
     struct macro_node *tail;
 };
+
+
+
 
 /* Function declarations */
 /**
@@ -42,7 +48,6 @@ int insert_new_macro(struct macro_linked_list *list, char *name, char *content);
  * @return Pointer to the newly created macro_node.
  */
  struct macro_node* create_macro_node(char *name, char *content);
-
 /**
  * @brief Checks whether a macro name has appeared in the linked list.
  *
@@ -51,11 +56,7 @@ int insert_new_macro(struct macro_linked_list *list, char *name, char *content);
  * 
  * @return 1 if the macro name appeared , otherwise 0.
  */
-
 int macro_name_appeared(struct macro_linked_list *list, char *name);
-
-
-
 /**
  * @brief Writes the macro content to a file if the macro name matches a given word.
  *
@@ -70,8 +71,6 @@ int macro_name_appeared(struct macro_linked_list *list, char *name);
  * @return void
  */
 void call_to_macro(char *first_word, FILE *file_am, struct macro_linked_list *list);
-
-
 /**
  * @brief Frees the memory allocated for the linked list and its macro_nodes.
  *
