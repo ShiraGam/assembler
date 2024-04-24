@@ -57,7 +57,6 @@ int calculate(int operand_method){
 		/*this add 2 words*/
 		num+=2;
 	}
-	/*no operand not add at all...*/
 	return num;
 }
 
