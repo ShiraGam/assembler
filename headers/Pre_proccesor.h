@@ -45,7 +45,7 @@ int pre_proccesor_main(int *error_exist, struct file_status* file, FILE *file_as
  * @param ptp Pointer to a pointer to the text.
  * @param macroName Pointer to store the found macro name.
  * @param pti Pointer to the current index in the text.
- * @file The name of the input file being processed and the current line.
+ * @param file The name of the input file being processed and the current line.
  * @return Returns NO_ERROR if successful, INTERNAL_ERROR if memory allocation fails,
  * or EXTERNAL_ERROR if there's an error in the external file.
  */
