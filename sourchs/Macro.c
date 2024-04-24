@@ -19,13 +19,16 @@
     /*copies the macro name and content strings*/
     new_macro_node->name = my_strdup(name);
     new_macro_node->content = my_strdup(content);
-	if (new_macro_node->name == NULL || new_macro_node->content == NULL){
+    if (new_macro_node->name == NULL || new_macro_node->content == NULL){
 	print_internal_error(memory_failed);
         return NULL;
-	}
+    }
     new_macro_node->next = NULL;
     return new_macro_node;
 }
+
+
+
 
 /* Function to initialize the linked list */
 struct macro_linked_list* create_macro_linked_list() {
@@ -40,6 +43,8 @@ struct macro_linked_list* create_macro_linked_list() {
     newList->tail = NULL;
     return newList;
 }
+
+
 
 /* Function to add a macro_node to the end of the linked list */
 int insert_new_macro(struct macro_linked_list *list, char *name, char *content) {
@@ -59,6 +64,9 @@ int insert_new_macro(struct macro_linked_list *list, char *name, char *content) 
     return NO_ERROR;
 }
 
+
+
+
 /*writes the macro content*/
 void call_to_macro(char *first_word, FILE *file_am, struct macro_linked_list *list) {
     struct macro_node *current = list->head; /* Start from the head of the linked list */
@@ -71,6 +79,9 @@ void call_to_macro(char *first_word, FILE *file_am, struct macro_linked_list *li
     }
 }
 
+
+
+
 /* Function to check whether a macro name appeared in the linked list */
 int macro_name_appeared(struct macro_linked_list *list, char *name) {
     struct macro_node *current = list->head;
@@ -81,6 +92,8 @@ int macro_name_appeared(struct macro_linked_list *list, char *name) {
     }
     return FALSE; /* Macro name not found*/
 }
+
+
 
 
 /* Function to free memory allocated for the linked list */
