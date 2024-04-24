@@ -74,7 +74,14 @@ void insert_new_symbol(struct symbols_linked_list *list, struct symbols_node * n
  * @return A pointer to the symbols_node structure containing the specified name, or NULL if not found.
  */
 struct symbols_node * get_symbol(struct symbols_linked_list *list, char *name);
-
+/**
+ * Set an entry point for a symbol in the linked list of symbols.
+ * 
+ * @param list Pointer to the linked list of symbols.
+ * @param name Name of the symbol.
+ * @param file Pointer to the file status structure.
+ * @return Returns TRUE if the entry point is set successfully, FALSE otherwise.
+ */
 int set_entry(struct symbols_linked_list * list,char * name,struct file_status * file);
 /**
  * @brief Adds a new node to the end of the linked list.
