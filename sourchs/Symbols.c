@@ -91,7 +91,7 @@ struct symbols_linked_list* create_symbols_linked_list(){
     return newList;
 }
 
-/* Function to add a node to the end of the linked list. she set next and is_entry itself */
+/* Function to add a node to the end of the linked list. this function sets next and is_entry itself */
 void insert_new_symbol(struct symbols_linked_list *list, struct symbols_node * new_symbols_node){
     new_symbols_node->next=NULL;
     new_symbols_node->is_entry=FALSE;
