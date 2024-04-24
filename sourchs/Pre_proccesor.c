@@ -10,6 +10,9 @@
 #include <ctype.h>
 #include <malloc.h>
 
+
+
+
 int pre_proccesor_main(int *error_exist, struct file_status * file, FILE *file_as, FILE *file_am, struct macro_linked_list * list)
 {
 	int i = 0, flag_macro = 0, found_EOF = 0,result,old_size = 0,new_size,size_macro;
@@ -17,6 +20,9 @@ int pre_proccesor_main(int *error_exist, struct file_status * file, FILE *file_a
 	char  *macro_name=NULL;
 	char **ptp;
 	char* macro_content=NULL;
+
+
+
 	while (!found_EOF)
 	{
 		i = 0;
@@ -145,6 +151,9 @@ int pre_proccesor_main(int *error_exist, struct file_status * file, FILE *file_a
 	return NO_ERROR;
 }
 
+
+
+
 int omittedLine(char **ptp){
 	char c = **ptp;
 	while (isspace(c) != FALSE && c != '\n' && c != EOF){
@@ -156,6 +165,9 @@ int omittedLine(char **ptp){
 	}
 	return FALSE;
 }
+
+
+
 
 int goToNewline(FILE *file_as){
 	char c = fgetc(file_as);
@@ -193,6 +205,9 @@ int find_name(char **ptp, char **macro_name, int *pti, struct file_status * file
 	(*macro_name)[macro_index] = '\0';
 	return NO_ERROR;
 }
+
+
+
 
 
 int legal_macro(char *str, struct macro_linked_list *list,struct file_status * file) {
