@@ -8,7 +8,7 @@ extern char strings[31][10];
  *
  * @param str The string to check for existence in the array.
  * 
- * @return 1 if the string exists in the array, 0 otherwise.
+ * @return TRUE if the string exists in the array, FALSE otherwise.
  */
 int reserved_words( char *str);
 /**
