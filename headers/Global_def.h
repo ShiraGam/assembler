@@ -5,6 +5,7 @@ struct file_status {
     char *name;
     int line;  
 };
+
 #define FALSE 0  
 #define TRUE 1
 #define MAX_LINE_LENGTH 82/*Maximum line length*/
