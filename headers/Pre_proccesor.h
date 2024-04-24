@@ -11,11 +11,16 @@
 int goToNewline(FILE *file_as);
 
 /**
- * @brief  Checks whether it is an empty line or a comment line
- * @param buffer The character array representing the line to be checked.
- *               It is assumed that the buffer is null-terminated.
- * @return       Returns TRUE (1) if the line is an omitted line, 
- *               otherwise returns FALSE (0).
+ * @brief Skips over whitespace characters until a non-whitespace character, semicolon, newline, or end-of-file is encountered.
+ * 
+ * This function advances the pointer pointed to by `ptp` until it reaches the first non-whitespace character, semicolon, newline, or end-of-file.
+ * Whitespace characters include space, tab, newline, carriage return, vertical tab, and form feed.
+ * 
+ * @param[in,out] ptp A pointer to a pointer to a character. This pointer will be updated to point to the next non-whitespace character, semicolon, newline, or end-of-file.
+ * 
+ * @return Returns TRUE if the current character is semicolon, newline, or end-of-file; otherwise, returns FALSE.
+ * 
+ * @note This function assumes that the input pointer `ptp` is valid and points to a valid memory location.
  */
 
 int omittedLine(char ** ptp);
