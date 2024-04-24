@@ -17,8 +17,6 @@
  * @return Pointer to the newly allocated duplicated string. NULL if memory allocation fails.
  */
 char *my_strdup(char *src);
-
-
 /**
  * @brief Checks if the remaining part of a line contains only whitespace characters.
  *
