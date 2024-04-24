@@ -27,6 +27,10 @@ struct symbols_linked_list {
     struct symbols_node *head;
     struct symbols_node *tail;
 };
+
+
+
+
 /**
  * Check if a symbol appears in the symbols linked list and perform related actions.
  *
@@ -70,8 +74,6 @@ void insert_new_symbol(struct symbols_linked_list *list, struct symbols_node * n
  * @return A pointer to the symbols_node structure containing the specified name, or NULL if not found.
  */
 struct symbols_node * get_symbol(struct symbols_linked_list *list, char *name);
-
-
 
 int set_entry(struct symbols_linked_list * list,char * name,struct file_status * file);
 /**
