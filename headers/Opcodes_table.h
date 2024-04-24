@@ -3,6 +3,8 @@
 #include "First_pass.h"
 #define OPERAND_OPTIONS 5/*For 4 addressing methods + possibility that no operand exists for this command*/
 #define OPCODES_LENGTH 4
+
+
 typedef struct {
     char* name;/*Action name*/
     int opcode[OPCODES_LENGTH];/*the binary representation*/
@@ -11,6 +13,9 @@ typedef struct {
     int source_operand[OPERAND_OPTIONS];
     int destination_operand[OPERAND_OPTIONS];
 } instruction;
+
+
+
 /**
  * Code the operation code based on the index action.
  *
