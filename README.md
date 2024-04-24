@@ -1,6 +1,4 @@
 # assembler
-Sure, here's the updated README incorporating the provided information:
-
 ---
 
 # Assembler Software Readme
