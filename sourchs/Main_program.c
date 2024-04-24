@@ -29,6 +29,10 @@ char *name_of_file(char *file_name, char *ending) {
     strcat(new_file_name, ending);
     return new_file_name;
 }
+
+
+
+
 /**
  * @brief Main function to preprocess files.
  * 
@@ -50,6 +54,9 @@ int main(int argc, char * argv[])
    if (argc < 2){
 	print_internal_error(no_files);
     }
+
+
+
     /*Reading the files, sending to the pre-assembler stage, first pass and second pass and creating output files*/
   while (--argc>0)
   {
@@ -135,6 +142,9 @@ int main(int argc, char * argv[])
      
      /*going to the next file-next iteration*/
   }
+
+
+	
    /*end of while-end of program*/
   printf("the program ends perfectrly \n");	
   return 0;
