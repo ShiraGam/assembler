@@ -16,7 +16,7 @@ int goToNewline(FILE *file_as);
  * This function advances the pointer pointed to by `ptp` until it reaches the first non-whitespace character, semicolon, newline, or end-of-file.
  * Whitespace characters include space, tab, newline, carriage return, vertical tab, and form feed.
  * 
- * @param[in,out] ptp A pointer to a pointer to a character. This pointer will be updated to point to the next non-whitespace character, semicolon, newline, or end-of-file.
+ * @param ptp A pointer to a pointer to a character. This pointer will be updated to point to the next non-whitespace character, semicolon, newline, or end-of-file.
  * 
  * @return Returns TRUE if the current character is semicolon, newline, or end-of-file; otherwise, returns FALSE.
  * 
