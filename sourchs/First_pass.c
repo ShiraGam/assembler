@@ -24,6 +24,7 @@ int first_pass_main(struct macro_linked_list * list, int * error_exist,struct fi
         print_internal_error(memory_failed);
         return INTERNAL_ERROR;
     }
+
     locations->DC=0;
     locations->IC=0;
     structures= (date_structures *)malloc(sizeof(date_structures));
@@ -32,6 +33,7 @@ int first_pass_main(struct macro_linked_list * list, int * error_exist,struct fi
         free(locations);
         return INTERNAL_ERROR;
     }
+
     structures->macro_list= list;
     structures->symbols_list= create_symbols_linked_list();
     if (structures->symbols_list==NULL){
@@ -40,6 +42,7 @@ int first_pass_main(struct macro_linked_list * list, int * error_exist,struct fi
 	free(structures);
         return INTERNAL_ERROR;
     }
+
     /*we need to initialize the arrays*/
     structures->data_array=NULL;
     structures->instructions_array=NULL;
@@ -51,6 +54,7 @@ int first_pass_main(struct macro_linked_list * list, int * error_exist,struct fi
 	free(structures);
         return INTERNAL_ERROR;
     }
+
     structures->data_array=NULL;
     structures->instructions_array=NULL;
     errors->external_error_exist=*error_exist;
@@ -66,6 +70,7 @@ int first_pass_main(struct macro_linked_list * list, int * error_exist,struct fi
       }
     
     
+
    while (!found_EOF)
    {
         file->line++;
@@ -90,13 +95,16 @@ int first_pass_main(struct macro_linked_list * list, int * error_exist,struct fi
         if (errors->internal_error_exist == TRUE){
             free(locations);
 	    free_symbols_list(structures->symbols_list);
-		free(structures->data_array);
-    		free(structures->instructions_array);
+	    free(structures->data_array);
+    	    free(structures->instructions_array);
 	    free(structures);
 	    free(errors);
             return INTERNAL_ERROR;
         }	
     }
+
+
+
     end_of_pass_1(locations,structures);
     second_pass_main(structures,errors,locations,file,file_am);
     free(buffer);
@@ -164,6 +172,9 @@ struct symbols_node* send_to_function(int is_label,char ** ptp,struct file_statu
     free(first_word);
     return node;
 }
+
+
+
 
 struct symbols_node* data(char ** ptp ,struct file_status * file, errors_status * errors,DC_IC * locations,date_structures * structures ){
 
@@ -270,6 +281,9 @@ struct symbols_node* data(char ** ptp ,struct file_status * file, errors_status 
     return node;   
 }
 
+
+
+
 struct symbols_node* string(char ** ptp ,struct file_status * file, errors_status * errors,DC_IC * locations,date_structures * structures ){
     struct symbols_node* node=(struct symbols_node*)malloc(sizeof(struct symbols_node));
     if (node==NULL){
@@ -328,6 +342,9 @@ struct symbols_node* string(char ** ptp ,struct file_status * file, errors_statu
     node->size= (locations->DC)-(node->value);
     return node;
 }
+
+
+
 /*its also increace the DC itself*/
 void insert_data(int value,  struct file_status * file, errors_status * errors,DC_IC * locations,date_structures * structures ){
     /*for size I want DC + 1 for the 0 in the end of string*/
@@ -343,6 +360,8 @@ void insert_data(int value,  struct file_status * file, errors_status * errors,D
 	}
 
 }
+
+
 
 struct symbols_node* label(char * label,char ** ptp ,struct file_status * file, errors_status * errors,DC_IC * locations,date_structures * structures ){
     struct symbols_node * node;
@@ -384,6 +403,9 @@ struct symbols_node* label(char * label,char ** ptp ,struct file_status * file, 
 	return NULL;
 }
 
+
+
+
 struct symbols_node* extern_line(char ** ptp ,struct file_status * file, errors_status * errors,DC_IC * locations,date_structures * structures ){
     char * label;
     /*skip coz send to fun get only without spaces. is skip return false it means we have nothing after*/
@@ -414,6 +436,9 @@ struct symbols_node* extern_line(char ** ptp ,struct file_status * file, errors_
     }
     return NULL;/*coz extern never in a label*/
 }
+
+
+
 
 struct symbols_node* define(char ** ptp ,struct file_status * file, errors_status * errors,DC_IC * locations,date_structures * structures ){
     char * name = (char *)malloc(MAX_NAME_LENGTH * sizeof(char));
@@ -510,6 +535,9 @@ struct symbols_node* define(char ** ptp ,struct file_status * file, errors_statu
     /*anyway we return null coz definition of define should not be in label*/ 
     return NULL;
 } 
+
+
+
 struct symbols_node* action(int index_of_action,char ** ptp ,struct file_status * file, errors_status * errors,DC_IC * locations,date_structures * structures ){
     /*this is num of words the this line will take in the instructuon array*/
     int L ,i, destination_operand_method, source_operand_method;
@@ -612,6 +640,9 @@ struct symbols_node* action(int index_of_action,char ** ptp ,struct file_status 
     return node;
 }
 
+
+
+
 void code_operand_method(int first_bit,int opernad_method,DC_IC * locations,date_structures * structures){
     if (opernad_method== IMMEDIATE || opernad_method== NO_OPPERAND){
         set_bit( &(structures->instructions_array)[locations->IC] , first_bit,0);
@@ -630,6 +661,8 @@ void code_operand_method(int first_bit,int opernad_method,DC_IC * locations,date
         set_bit( &(structures->instructions_array)[locations->IC] , first_bit-1,1);
     }
 }
+
+
 
 /*Add the IC +100 to the values in the symbol table that are both relocatable and data. and add 100 to the values that are both relocatable and code. (In other words, we will not change the value of the defines and externals at all...)*/
 void end_of_pass_1(DC_IC * locations,date_structures * structures){
