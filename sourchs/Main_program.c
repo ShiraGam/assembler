@@ -45,9 +45,8 @@ int main(int argc, char * argv[])
    char * file_name = NULL;
    FILE * file_as;
    FILE * file_am;
-	char * copy_file_am;
-	char * path;
-	/*meanwhile*/
+   char * copy_file_am;
+   char * path;
    if (argc < 2){
 	print_internal_error(no_files);
     }
