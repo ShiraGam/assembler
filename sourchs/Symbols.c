@@ -32,6 +32,9 @@ struct symbols_node *new_symbols_node = list->head;
     }
     printf("\nend of symbols\n");
 }
+
+
+
 int appear_in_symbols(struct symbols_linked_list *list, char * symbol_name,int type,int define_value,struct file_status * file,errors_status * errors ){
     struct symbols_node *current = list->head;
     while (current != NULL) {
@@ -77,6 +80,7 @@ int appear_in_symbols(struct symbols_linked_list *list, char * symbol_name,int t
 }
 
 
+
 /* Function to initialize the linked list */
 struct symbols_linked_list* create_symbols_linked_list(){
     /*dynamically allocates memory for a new linked list*/
@@ -91,6 +95,9 @@ struct symbols_linked_list* create_symbols_linked_list(){
     return newList;
 }
 
+
+
+
 /* Function to add a node to the end of the linked list. this function sets next and is_entry itself */
 void insert_new_symbol(struct symbols_linked_list *list, struct symbols_node * new_symbols_node){
     new_symbols_node->next=NULL;
@@ -103,6 +110,9 @@ void insert_new_symbol(struct symbols_linked_list *list, struct symbols_node * n
         list->tail = new_symbols_node;
     }
 }
+
+
+
 
 /* Function to search for a name in the linked list and return the corresponding node.its return the adress to the node so be carefull not to change the node, coz it will change in the list too. it means you dont 
 *have to aloocate memory yourself */
@@ -120,6 +130,7 @@ struct symbols_node * get_symbol(struct symbols_linked_list *list, char *name) {
 
     return NULL; /* Return NULL if the name is not found*/
 }
+
 
 
 
@@ -150,6 +161,9 @@ int set_entry(struct symbols_linked_list * list,char * name,struct file_status *
     return FALSE; /* this entry never realized*/
 }
 
+
+
+
 /* Function to create a new node. she puts next and is_entry itself*/
  int create_insert_symbol(struct symbols_linked_list * list,char *name, int value,int location,int update_attribute,long size,int line){
     /*dynamically allocates memory for a new node*/
@@ -174,6 +188,8 @@ int set_entry(struct symbols_linked_list * list,char * name,struct file_status *
     insert_new_symbol(list,new_symbols_node);
 	return NO_ERROR;
 }
+
+
 
 
 /* Function to free memory allocated for the linked list */
