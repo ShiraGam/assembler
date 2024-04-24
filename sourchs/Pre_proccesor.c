@@ -49,7 +49,7 @@ int pre_proccesor_main(int *error_exist, struct file_status * file, FILE *file_a
 		copy = buffer;/*save for free after*/
 		ptp=&copy;
 
-		/*here ptp supposed to change*/
+		/*here ptp supposed to change- to skip all the spaces that in the begining of the line*/
 		if (omittedLine(ptp)){
 
 			continue;
