@@ -14,6 +14,8 @@ typedef struct {
 } bit_field;
 
 
+
+
 void print_bits(bit_field *array, int size) ;
 
 /**
