@@ -3,7 +3,6 @@
 #include "Macro.h"
 #include "Global_def.h"
 #include "Symbols.h"
-#include "First_pass.h"
 
 
 /**
@@ -100,6 +99,5 @@ char * next_param(char ** ptp);
  * @return Returns an integer representing the addressing methods according the definers in Global_def.h
  */
 int figure_addressing_methods(char * opernad,struct symbols_linked_list * list);
-void printing(date_structures * structures, errors_status * errors,DC_IC * locations);   
 
 #endif  /* GLOBAL_FUN_H */
