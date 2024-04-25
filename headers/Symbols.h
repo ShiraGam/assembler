@@ -106,7 +106,6 @@ int set_entry(struct symbols_linked_list * list,char * name,struct file_status *
  * @return void
  */
 void free_symbols_list(struct symbols_linked_list *list);
-void print_symbols(struct symbols_linked_list *list);
 
 #endif /* MY_SYMBOLS_H */
 
