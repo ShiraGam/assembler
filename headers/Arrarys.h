@@ -15,9 +15,6 @@ typedef struct {
 
 
 
-
-void print_bits(bit_field *array, int size) ;
-
 /**
  * Set a specific bit in a bitfield.
  *
