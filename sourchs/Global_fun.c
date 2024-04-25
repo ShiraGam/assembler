@@ -11,16 +11,6 @@
 #include "Symbols.h"
 
 
-void printing(date_structures * structures ,errors_status * errors,DC_IC * locations){
-	printf("printing \n errors->internal = %d \n errors->external = %d \n locations->IC = %d \n locations->DC = %d \n",errors->internal_error_exist,errors->external_error_exist,locations->IC,locations->DC);
-	print_symbols(structures->symbols_list);
-	printf("data array\n");
-	print_bits(structures->data_array,locations->DC);
-	printf("instuction array\n");
-	print_bits(structures->instructions_array,locations->IC);
-}
-
-
 
 int fill_and_check(char * buffer,FILE * file){
     char c;
