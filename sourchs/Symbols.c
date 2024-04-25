@@ -6,33 +6,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-void print_symbols(struct symbols_linked_list *list){
-
-struct symbols_node *new_symbols_node = list->head;
-	printf("symbols\n");
-    while (new_symbols_node != NULL) {
-        printf("\nnew symbol----------\n");
-	printf("name-%s ",new_symbols_node->name);
-	printf("value-%d ",new_symbols_node->value);
-	if (new_symbols_node->location == MDEFINE)
-		printf("location- MDEFINE ");
-	else if (new_symbols_node->location == CODE)
-		printf("location- CODE ");
-	else if (new_symbols_node->location == DATA)
-		printf("location- DATA ");
-	else if (new_symbols_node->location == FICTIVE)
-		printf("location- FICTIVE ");
-	if (new_symbols_node->update_attribute == RELOCATEABLE)
-		printf("update_attribute- RELOCATEABLE ");
-	if (new_symbols_node->update_attribute == EXTERNAL)
-		printf("update_attribute- EXTERNAL ");
-   printf("size-%d " ,new_symbols_node->size);
-   printf("line-%d ", new_symbols_node->line);
-        new_symbols_node = new_symbols_node->next;
-    }
-    printf("\nend of symbols\n");
-}
-
 
 
 int appear_in_symbols(struct symbols_linked_list *list, char * symbol_name,int type,int define_value,struct file_status * file,errors_status * errors ){
