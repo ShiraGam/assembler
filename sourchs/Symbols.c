@@ -2,13 +2,14 @@
 #include "Errors.h"
 #include "Global_def.h"
 #include "Global_fun.h"
+#include "First_pass.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 
 
-int appear_in_symbols(struct symbols_linked_list *list, char * symbol_name,int type,int define_value,struct file_status * file,errors_status * errors ){
+int appear_in_symbols(struct symbols_linked_list *list, char * symbol_name,int type,int define_value,struct file_status * file, errors_status * errors ){
     struct symbols_node *current = list->head;
     while (current != NULL) {
         if (strcmp(current->name, symbol_name) == 0){

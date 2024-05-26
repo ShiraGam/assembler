@@ -3,33 +3,52 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "First_pass.h"
 #include "Global_def.h"
-
+#include "First_pass.h"
 
 /* Struct for the node */
 struct symbols_node {
-    char *name;
+	char *name;
 	/*DC,IC or value of define.in the end of first_pass it will change*/
-    int value;
+	int value;
 	/*data,code,mdefine*/
-    int location;
+	int location;
 	/*external,relocateable*/
-    int update_attribute;
-    int size;
-    int line;
-    int is_entry;
-    struct symbols_node *next;
+	int update_attribute;
+	int size;
+	int line;
+	int is_entry;
+	struct symbols_node *next;
 };
 
 /* Struct for the linked list */
 struct symbols_linked_list {
-    struct symbols_node *head;
-    struct symbols_node *tail;
+	struct symbols_node *head;
+	struct symbols_node *tail;
 };
 
 
 
+
+
+
+/**
+ * @brief Creates a new linked list.
+ *
+ * @return Pointer to the newly created linked list.
+ */
+struct symbols_linked_list* create_symbols_linked_list();
+
+
+/**
+ * Insert a new symbol node into the symbols linked list.
+ *
+ * This function inserts a new symbol node into the symbols linked list.
+ *
+ * @param list A pointer to the symbols linked list where the new node will be inserted.
+ * @param new_symbols_node A pointer to the new symbol node to be inserted.
+ */
+void insert_new_symbol(struct symbols_linked_list *list, struct symbols_node * new_symbols_node);
 
 /**
  * Check if a symbol appears in the symbols linked list and perform related actions.
@@ -48,23 +67,9 @@ struct symbols_linked_list {
  *         - TRUE if there is error in this label or define decleration.
  *         - FALSE if this name is fine considering various conditions.
  */
-int appear_in_symbols(struct symbols_linked_list *list, char * symbol_name,int type,int define_value,struct file_status * file,errors_status * errors );
+int appear_in_symbols(struct symbols_linked_list *list, char * symbol_name,int type,int define_value,struct file_status * file, errors_status * errors);
 
-/**
- * @brief Creates a new linked list.
- *
- * @return Pointer to the newly created linked list.
- */
-struct symbols_linked_list* create_symbols_linked_list();
-/**
- * Insert a new symbol node into the symbols linked list.
- *
- * This function inserts a new symbol node into the symbols linked list.
- *
- * @param list A pointer to the symbols linked list where the new node will be inserted.
- * @param new_symbols_node A pointer to the new symbol node to be inserted.
- */
-void insert_new_symbol(struct symbols_linked_list *list, struct symbols_node * new_symbols_node);
+
 /**
  * @brief Search for a symbol by name in a symbols linked list.
  *
@@ -74,6 +79,8 @@ void insert_new_symbol(struct symbols_linked_list *list, struct symbols_node * n
  * @return A pointer to the symbols_node structure containing the specified name, or NULL if not found.
  */
 struct symbols_node * get_symbol(struct symbols_linked_list *list, char *name);
+
+
 /**
  * Set an entry point for a symbol in the linked list of symbols.
  * 
@@ -83,6 +90,8 @@ struct symbols_node * get_symbol(struct symbols_linked_list *list, char *name);
  * @return Returns TRUE if the entry point is set successfully, FALSE otherwise.
  */
 int set_entry(struct symbols_linked_list * list,char * name,struct file_status * file);
+
+
 /**
  * @brief Adds a new node to the end of the linked list.
  *

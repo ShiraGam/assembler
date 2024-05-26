@@ -3,6 +3,7 @@
 #include "Macro.h"
 #include "Global_def.h"
 #include "Symbols.h"
+#include "First_pass.h"
 
 
 /**
@@ -16,6 +17,20 @@
  * @return Pointer to the newly allocated duplicated string. NULL if memory allocation fails.
  */
 char *my_strdup(char *src);
+
+/**
+ * @brief Finds the index of the first occurrence of a character in a string.
+ *
+ * This function searches for the first occurrence of a specified character within
+ * the provided string and returns the index of that character if found.
+ *
+ * @param str Pointer to the null-terminated string to search within.
+ * @param target The character to search for within the string.
+ * @return The index of the first occurrence of the target character within the string,
+ * or -1 if the character is not found.
+ */
+int indexOf(char *str, char target);
+
 /**
  * @brief Checks if the remaining part of a line contains only whitespace characters.
  *
@@ -99,5 +114,6 @@ char * next_param(char ** ptp);
  * @return Returns an integer representing the addressing methods according the definers in Global_def.h
  */
 int figure_addressing_methods(char * opernad,struct symbols_linked_list * list);
+void printing(date_structures * structures, errors_status * errors,DC_IC * locations);   
 
 #endif  /* GLOBAL_FUN_H */

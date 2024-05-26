@@ -49,7 +49,7 @@ int main(int argc, char * argv[])
    char * file_name = NULL;
    FILE * file_as;
    FILE * file_am;
-   char * copy_file_am;
+   char * copy_file_as=NULL;
    char * path;
    if (argc < 2){
 	print_internal_error(no_files);
@@ -61,33 +61,40 @@ int main(int argc, char * argv[])
   while (--argc>0)
   {
     error_exists = FALSE;
+    file_name=NULL;
+     copy_file_as=NULL;
     list = create_macro_linked_list();
     if (list == NULL){
 	print_internal_error(memory_failed);
 	return 1;
     }
-	/*if malloc failed*/
-    if ((file_name = name_of_file(argv[argc],".am"))==NULL){
-	free_macro_list(list);
-        return 1;
-    }
-    file_am = fopen(file_name,"w+");
-    copy_file_am = file_name;
+/*if malloc failed*/
+    
     if ((file_name = name_of_file(argv[argc],".as"))==NULL){
-	fclose(file_am);
 	free_macro_list(list);
-	free(copy_file_am);
         return 1;
     }
     file_as = fopen(file_name,"r");
+    copy_file_as=file_name;
     if (file_as == NULL){
-	fclose(file_am);
 	free_macro_list(list);
 	print_internal_error(no_such_file);
 	free(file_name);
-	free(copy_file_am);
 	continue;
      }
+
+if ((file_name = name_of_file(argv[argc],".am"))==NULL){
+	free_macro_list(list);
+	fclose(file_as);
+	free(copy_file_as);
+        return 1;
+    }
+    file_am = fopen(file_name,"w+");
+
+
+
+
+
     file= (struct file_status *)malloc(sizeof(struct file_status));
     if (file == NULL){
 	fclose(file_as);
@@ -95,22 +102,31 @@ int main(int argc, char * argv[])
 	print_internal_error(memory_failed);
 	free_macro_list(list);
 	free(file_name);
-	free(copy_file_am);
+	free(copy_file_as);
         return 1;
      }
-	file->name=file_name;
+	file->name=copy_file_as;
 	file->line=0;
      	result = pre_proccesor_main(&error_exists,file,file_as,file_am,list);
      	fclose(file_as);
     	if ( result == EXTERNAL_ERROR){
      		fclose(file_am);
  		path= (char*)malloc((MAX_NAME_LENGTH+30)*sizeof(char));
+		if (path==NULL){
+            		fclose(file_as);
+            		fclose(file_am);
+           		free_macro_list(list);
+            		free(file_name);
+            		free(copy_file_as);
+            		print_internal_error(memory_failed);
+            		return 1;
+        	}
 		strcpy(path,"../project/");
 		file->name[strlen(file->name) - 3] = '\0';	
 		strcat(path,strcat(file->name,".am"));
 		free_macro_list(list);
 		free(file);
-		free(copy_file_am);
+		free(copy_file_as);
       		if (remove(path)){ 
           		print_internal_error(remove_fail);   
       			}   
@@ -124,15 +140,16 @@ int main(int argc, char * argv[])
     	free(file_name);
 	 free(file);
 	fclose(file_am);
-	free(copy_file_am);
+	free(copy_file_as);
        return 1; 
    }
     fseek(file_am, 0, SEEK_SET);
-    file->name=copy_file_am;
+    file->name=file_name;
     file->line=0;
-    	 free(file_name);
+
     result= first_pass_main(list,&error_exists,file,file_am);
-	free(copy_file_am);
+	free(copy_file_as);
+        free(file_name);
      free_macro_list(list);
      free(file);
 	fclose(file_am);
@@ -146,7 +163,6 @@ int main(int argc, char * argv[])
 
 	
    /*end of while-end of program*/
-  printf("the program ends perfectrly \n");	
   return 0;
   
   

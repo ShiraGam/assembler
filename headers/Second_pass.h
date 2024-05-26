@@ -10,184 +10,62 @@
 #include "Reserved_words.h"
 
 
-/**
- * @brief Handles the second pass of the assembly process.
- * 
- * @param[in] structures Pointer to the data_structures structure.
- * @param[in,out] errors Pointer to the errors_status structure.
- * @param[in,out] locations Pointer to the DC_IC structure.
- * @param[in,out] file Pointer to the file_status structure.
- * @param[in,out] file_am Pointer to the input assembly file.
- */
+
+
 void second_pass_main(date_structures * structures, errors_status * errors,DC_IC * locations,struct file_status * file,FILE * file_am);
 
-/**
- * @brief Sends the line to the respective function for processing during the second pass.
- * 
- * @param[in,out] ptp Pointer to a pointer to a character representing the line.
- * @param[in,out] file Pointer to the file_status structure.
- * @param[in,out] errors Pointer to the errors_status structure.
- * @param[in,out] locations Pointer to the DC_IC structure.
- * @param[in,out] structures Pointer to the data_structures structure.
- * @param[in,out] file_ex Pointer to the external file.
- * @param[in] prev_ic The previous value of the instruction counter.
- */
+
 void send_to_function_pass_two(char ** ptp,struct file_status * file, errors_status * errors,DC_IC * locations,date_structures * structures,FILE * file_ex,int prev_ic);
-/**
- * @brief Handles the action coding during the second pass.
- * 
- * @param[in] index_of_action The index of the action in the Opcodes table.
- * @param[in,out] ptp Pointer to a pointer to a character representing the line.
- * @param[in,out] file Pointer to the file_status structure.
- * @param[in,out] errors Pointer to the errors_status structure.
- * @param[in,out] locations Pointer to the DC_IC structure.
- * @param[in,out] structures Pointer to the data_structures structure.
- * @param[in,out] file_ex Pointer to the external file.
- * @param[in] prev_ic The previous value of the instruction counter.
- */
+
 void action_coding(int index_of_action,char ** ptp ,struct file_status * file, errors_status * errors,DC_IC * locations,date_structures * structures,FILE * file_ex,int prev_ic);
  
-/**
- * @brief Handles the coding of operands during the second pass.
- * 
- * @param[in,out] file Pointer to the file_status structure.
- * @param[in,out] errors Pointer to the errors_status structure.
- * @param[in,out] locations Pointer to the DC_IC structure.
- * @param[in,out] structures Pointer to the data_structures structure.
- * @param[in] operand The operand to be coded.
- * @param[in,out] file_ex Pointer to the external file.
- * @param[in] source_operand Specifies if the operand is a source operand.
- * @param[in] destination_operand Specifies if the operand is a destination operand.
- * @param[in] prev_ic The previous value of the instruction counter.
- */
+
 void coding_operand(struct file_status * file, errors_status * errors,DC_IC * locations,date_structures * structures,char* operand,FILE * file_ex,int source_operand,int destination_operand,int prev_ic );
 
-/**
- * @brief Handles the coding of immediate operands during the second pass.
- * 
- * @param[in,out] file Pointer to the file_status structure.
- * @param[in,out] errors Pointer to the errors_status structure.
- * @param[in,out] locations Pointer to the DC_IC structure.
- * @param[in,out] structures Pointer to the data_structures structure.
- * @param[in] operand The immediate operand to be coded.
- * @param[in] prev_ic The previous value of the instruction counter.
- */
+
 void coding_immediate(struct file_status * file, errors_status * errors,DC_IC * locations,date_structures * structures,char *operand,int prev_ic );
 
-/**
- * @brief Encodes the register value and updates the instructions array.
- * 
- * This function encodes the register value and updates the instructions array accordingly.
- * It assumes that the register value provided is correct.
- * 
- * @param file Pointer to the file_status struct containing file-related information.
- * @param errors Pointer to the errors_status struct to handle errors.
- * @param locations Pointer to the DC_IC struct containing instruction and data counts.
- * @param structures Pointer to the date_structures struct containing symbol information.
- * @param register_value Pointer to the string containing the register value.
- * @param source_operand Flag indicating whether the register is for the source operand (1) or destination operand (0).
- * @param prev_ic The previous instruction count.
- */
+/*get register assume that its correct*/
 void coding_register(struct file_status * file,errors_status * errors,DC_IC * locations,date_structures * structures,char* register_value,int source_operand,int prev_ic );
-/**
- * @brief Encodes the index operand and updates the instructions array.
- * 
- * This function encodes the index operand and updates the instructions array accordingly.
- * It handles both direct and indexed addressing modes.
- * 
- * @param file Pointer to the file_status struct containing file-related information.
- * @param operand Pointer to the string containing the index operand.
- * @param locations Pointer to the DC_IC struct containing instruction and data counts.
- * @param structures Pointer to the date_structures struct containing symbol information.
- * @param errors Pointer to the errors_status struct to handle errors.
- * @param file_ex Pointer to the external file pointer for writing external references.
- * @param prev_ic The previous instruction count.
- */
+
 void coding_by_index(struct file_status * file,char *operand,DC_IC * locations,date_structures * structures,errors_status * errors,FILE * file_ex,int prev_ic );
-/**
- * @brief Encodes the direct operand and updates the instructions array.
- * 
- * This function encodes the direct operand and updates the instructions array accordingly.
- * It handles both direct addressing mode and external references.
- * 
- * @param file Pointer to the file_status struct containing file-related information.
- * @param errors Pointer to the errors_status struct to handle errors.
- * @param operand Pointer to the string containing the direct operand.
- * @param locations Pointer to the DC_IC struct containing instruction and data counts.
- * @param structures Pointer to the date_structures struct containing symbol information.
- * @param file_ex Pointer to the external file pointer for writing external references.
- * @param prev_ic The previous instruction count.
- */
+
 void coding_direct(struct file_status * file,errors_status * errors,char* operand,DC_IC * locations,date_structures * structures,FILE * file_ex,int prev_ic );
  
-/**
- * @brief Checks if a line contains a comma.
- * 
- * @param[in] ptp Pointer to a pointer to a character representing the line.
- * 
- * @return Returns TRUE if the line contains a comma, otherwise FALSE.
- */
+
+
+
 int contains_comma(char **ptp);
 
 
+/*remember to delate structer!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 /**
- * @brief Sets a range of bits in a bitfield with a specified value.
- * 
- * @param[in] file Pointer to the file_status structure.
- * @param[in,out] errors Pointer to the errors_status structure.
- * @param[in,out] bitfield Pointer to the bit_field structure to modify.
- * @param[in] start The starting bit index of the range.
- * @param[in] end The ending bit index of the range.
- * @param[in] value The value to set in the specified bit range.
- * @param[in] prev_ic The previous value of the instruction counter.
- * @param[in] current_ic The current value of the instruction counter.
+ * @brief Sets a range of bits in a bit field to a specified value.
+ *
+ * This function sets a range of bits in the given bit field to the specified value.
+ * The range is specified by the start and end indices (inclusive).
+ *
+ * @param file Pointer to the file status structure.
+ * @param errors Pointer to the errors status structure.
+ * @param bitfield Pointer to the bit field structure.
+ * @param start Starting index of the range to set.
+ * @param end Ending index of the range to set.
+ * @param value Value to set in the specified range.
+ * @param prev_ic Previous instruction counter value.
+ * @param current_ic Current instruction counter value.
+ * @param structures Pointer to the date structures.
+ * @param locations Pointer to the DC_IC structures.
  */
 void set_bit_range(struct file_status *file, errors_status *errors, bit_field *bitfield, int start, int end, int value, int prev_ic, int current_ic);
 
 
-/**
- * @brief Prints the contents of the instructions array to a file in encoded format.
- * 
- * @param[in] file_ob Pointer to the file where the instructions will be printed.
- * @param[in] instructions_array Pointer to the instructions array to print.
- * @param[in] array_length The length of the instructions array.
- * @param[in] begin The starting position to print the instructions array.
- */
+
 void print_bits_encoded(FILE *file_ob, bit_field *instructions_array, int array_length,int begin);
-/**
- * @brief Closes the given external file pointer and removes it if it's empty.
- * 
- * This function closes the provided external file pointer and removes the file if it's empty.
- * It checks if the file is empty, and if so, it deletes the file from the file system.
- * 
- * @param file_ex Pointer to the external file to be closed.
- * @param errors Pointer to the errors_status struct to handle internal errors.
- * @param file_name_with_ex Name of the external file.
- */
+
 void close_ex_file(FILE*file_ex,errors_status * errors,char * file_name_with_ex);
-/**
- * @brief Prints the entries to the entry file.
- * 
- * This function prints the entry symbols and their corresponding values to the entry file.
- * It iterates through the symbols list and prints entries with their values to the entry file.
- * 
- * @param file Pointer to the file_status struct containing file-related information.
- * @param errors Pointer to the errors_status struct to handle errors.
- * @param structures Pointer to the date_structures struct containing symbol information.
- */
+
 void print_entry(struct file_status * file, errors_status * errors,date_structures * structures);
-/**
- * @brief Prints the object (".ob") file.
- * 
- * This function prints the encoded instructions and data to the object file.
- * It writes the instructions and data, along with their addresses, to the object file.
- * 
- * @param file Pointer to the file_status struct containing file-related information.
- * @param errors Pointer to the errors_status struct to handle errors.
- * @param structures Pointer to the date_structures struct containing symbol and data information.
- * @param locations Pointer to the DC_IC struct containing instruction and data counts.
- * @param prev_ic The previous instruction count.
- */
+
 void print_ob_file(struct file_status * file, errors_status * errors,date_structures * structures,DC_IC * locations,int prev_ic);
 
 

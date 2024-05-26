@@ -34,7 +34,7 @@ print_external_error(too_many_words,file);
 
 	
 
-	file->name[strlen(file->name) - REMOVE_ENDING] = '\0';
+	
 	file_name_with_ext  = (char*)malloc((MAX_NAME_LENGTH)*sizeof(char));  
 	if (file_name_with_ext == NULL ) {
 		print_internal_error(memory_failed);
@@ -44,6 +44,7 @@ print_external_error(too_many_words,file);
 
 	strcpy(file_name_with_ext,"../project/");
 	strcat(file_name_with_ext,file->name);
+	file_name_with_ext[strlen(file_name_with_ext) - REMOVE_ENDING] = '\0';
 	file_ex = fopen((strcat(file_name_with_ext, ".ext")), "w+");
 
 
@@ -124,7 +125,7 @@ void send_to_function_pass_two(char ** ptp,struct file_status * file, errors_sta
 			word_length=strlen(first_word);
 
 			/*coz if its label we got label into label*/
-			if(word_length >= 2 && first_word[word_length - 1] == ':'){/*------------------take care on illagal label - or done?---------------*/
+			if(word_length >= 2 && first_word[word_length - 1] == ':'){
 
 				/*assuming that a label should not be a set on empty line*/
 				if(skip_spaces(ptp) == FALSE){
@@ -174,7 +175,6 @@ void send_to_function_pass_two(char ** ptp,struct file_status * file, errors_sta
 				}}
 			else{
 				errors->external_error_exist= TRUE;
-				print_external_error(invalid_operand,file);
 				free_strings(1,first_word);}
 			return;
 		}
@@ -195,7 +195,7 @@ void send_to_function_pass_two(char ** ptp,struct file_status * file, errors_sta
 					free_strings(2,source_operand,destination_operand);
 					errors->external_error_exist=TRUE;
 					}
-locations ->IC --;
+				locations ->IC --;
 				return ;}
 
 			source_operand = (char *)malloc((MAX_LINE_LENGTH) * sizeof(char));
@@ -564,6 +564,7 @@ void print_entry(struct file_status * file, errors_status * errors,date_structur
 				return;
 			}
 			strcpy(strcpy(file_name_with_ent,"../project/"),file->name);
+			file_name_with_ent[strlen(file_name_with_ent) - REMOVE_ENDING] = '\0';
 			strcat(file_name_with_ent, ".ent");
 			file_ent = fopen(file_name_with_ent, "w+");
 			if ( file_ent == NULL ) {
@@ -608,6 +609,7 @@ void print_entry(struct file_status * file, errors_status * errors,date_structur
 				return;
 			}
 			strcpy(strcpy(file_name_with_ob,"../project/"),file->name);
+			file_name_with_ob[strlen(file_name_with_ob) - REMOVE_ENDING] = '\0';
 			strcat(file_name_with_ob, ".ob");
 			file_ob = fopen(file_name_with_ob, "w+");
 			if ( file_ob == NULL ) {
@@ -641,7 +643,7 @@ void close_ex_file(FILE*file_ex,errors_status * errors,char * file_name_with_ext
 long size;
 if(fseek(file_ex, 0, SEEK_END) == 0){
 	size = ftell(file_ex); /* Get the current position, which is the size of the file*/
-		if(size == 0){
+		if(size == 0 || errors->internal_error_exist || errors->external_error_exist){
 			if(remove(file_name_with_ext) != FALSE){
 				print_internal_error(remove_fail);
 							fclose(file_ex);
@@ -677,5 +679,3 @@ void print_bits_encoded(FILE *file_ob, bit_field *instructions_array, int array_
 }
 		
 		
-
-

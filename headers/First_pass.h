@@ -13,7 +13,10 @@ typedef struct {
     bit_field * instructions_array;
 } date_structures;
 
-
+typedef struct {
+    int external_error_exist;
+    int internal_error_exist;
+}errors_status;
 
 typedef struct {
     int DC;
@@ -22,10 +25,7 @@ typedef struct {
 
 
 
-typedef struct {
-    int external_error_exist;
-    int internal_error_exist;
-}errors_status;
+
 
 
 
@@ -56,7 +56,7 @@ int first_pass_main(struct macro_linked_list * list, int * error_exist,struct fi
  * @return Returns a pointer to a symbols_node structure containing processed data.
  *         Returns NULL if an error occurred during processing.
  */
-struct symbols_node* send_to_function(int is_label,char ** ptp,struct file_status * file, errors_status * errors,DC_IC * locations,date_structures * structures );struct symbols_node* send_to_function(int is_label,char ** ptp,struct file_status * file, errors_status * errors,DC_IC * locations,date_structures * structures );
+struct symbols_node* send_to_function(int is_label,char ** ptp,struct file_status * file, errors_status * errors,DC_IC * locations,date_structures * structures );
 /**
  * treats line that holds data.
  *

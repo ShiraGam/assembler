@@ -76,7 +76,6 @@ int legal_word(char *str,int is_define, struct macro_linked_list *list,struct fi
         return FALSE;
     }	
     if ( !is_define){
-printf("\n not define");
     while (*str) {
         if (!isdigit(*str) && !isalpha(*str)){ /* Check if the character is printable and not whitespace */
             print_external_error(illegal_name, file);
@@ -85,7 +84,6 @@ printf("\n not define");
         str++;
     }}
     if (macro_name_appeared(list, str) ){ /* Check if the macro name appeared*/
-	printf("\n not define");
         print_external_error(defined_macro,file);
         return FALSE;
     }

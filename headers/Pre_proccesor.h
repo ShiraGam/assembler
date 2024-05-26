@@ -11,16 +11,11 @@
 int goToNewline(FILE *file_as);
 
 /**
- * @brief Skips over whitespace characters until a non-whitespace character, semicolon, newline, or end-of-file is encountered.
- * 
- * This function advances the pointer pointed to by `ptp` until it reaches the first non-whitespace character, semicolon, newline, or end-of-file.
- * Whitespace characters include space, tab, newline, carriage return, vertical tab, and form feed.
- * 
- * @param ptp A pointer to a pointer to a character. This pointer will be updated to point to the next non-whitespace character, semicolon, newline, or end-of-file.
- * 
- * @return Returns TRUE if the current character is semicolon, newline, or end-of-file; otherwise, returns FALSE.
- * 
- * @note This function assumes that the input pointer `ptp` is valid and points to a valid memory location.
+ * @brief  Checks whether it is an empty line or a comment line
+ * @param buffer The character array representing the line to be checked.
+ *               It is assumed that the buffer is null-terminated.
+ * @return       Returns TRUE (1) if the line is an omitted line, 
+ *               otherwise returns FALSE (0).
  */
 
 int omittedLine(char ** ptp);
@@ -50,7 +45,7 @@ int pre_proccesor_main(int *error_exist, struct file_status* file, FILE *file_as
  * @param ptp Pointer to a pointer to the text.
  * @param macroName Pointer to store the found macro name.
  * @param pti Pointer to the current index in the text.
- * @param file The name of the input file being processed and the current line.
+ * @file The name of the input file being processed and the current line.
  * @return Returns NO_ERROR if successful, INTERNAL_ERROR if memory allocation fails,
  * or EXTERNAL_ERROR if there's an error in the external file.
  */

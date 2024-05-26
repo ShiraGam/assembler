@@ -5,7 +5,6 @@ struct file_status {
     char *name;
     int line;  
 };
-
 #define FALSE 0  
 #define TRUE 1
 #define MAX_LINE_LENGTH 82/*Maximum line length*/
@@ -65,12 +64,16 @@ struct file_status {
 #define  CODING_EXTERNAL 1
 #define  CODING_RELOCATEABLE 2
 
-#define BITS_PER_ENCODED_WORD 14/*14 bits in each word*/
-#define BITS_PER_ITERATION 2/*For the change to base 4*/
-#define ENCODED_WORD_LENGTH 7/*Length of an encrypted word in base 4*/
-#define BASE_4 3 /*mask*/
-#define START_MEMORY 100/*The memory starts from address 100*/
-#define  SIZE_MEMORY 4096/*The maximum number of words in memory*/
-#define REMOVE_ENDING 3/*Removes the file extension*/    
+/*14 bits in each word*/
+#define BITS_PER_ENCODED_WORD 14
+/*For the change to base 4*/
+#define BITS_PER_ITERATION 2
+/*Length of an encrypted word in base 4*/
+#define ENCODED_WORD_LENGTH 7
+/*mask*/
+#define BASE_4 3
+#define START_MEMORY 100
+#define  SIZE_MEMORY 4096
+#define REMOVE_ENDING 3
 
 #endif  /* GLOBAL_DEF_H */

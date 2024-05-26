@@ -67,7 +67,6 @@ int pre_proccesor_main(int *error_exist, struct file_status * file, FILE *file_a
 			i++;
 		}
 		first_word[i] = '\0';
-		printf("\n first word: %s " ,first_word);
 		if(!strcmp(first_word,"endmcr")) {
 			if (!valid_end(*ptp, i, file, error_exist)){
 				free_strings(4, macro_name, first_word, buffer, macro_content);
@@ -112,7 +111,6 @@ int pre_proccesor_main(int *error_exist, struct file_status * file, FILE *file_a
 			}
 		}
 		else if(!strcmp(first_word,"mcr")){
-			printf("\n in mcr");
 			result = find_name(ptp, &macro_name, &i, file);
 			if(result == INTERNAL_ERROR){
 				free_strings(4, macro_name, first_word, buffer, macro_content);
@@ -131,7 +129,6 @@ int pre_proccesor_main(int *error_exist, struct file_status * file, FILE *file_a
 				return INTERNAL_ERROR;
 			}
 			flag_macro = TRUE;
-			printf("\n in mcr macro name is:%s",macro_name);
 		}	
 		else if(macro_name_appeared(list,first_word)){
 			if(valid_end(*ptp,i,file,error_exist)){
@@ -211,7 +208,6 @@ int find_name(char **ptp, char **macro_name, int *pti, struct file_status * file
 
 
 int legal_macro(char *str, struct macro_linked_list *list,struct file_status * file) {
-	printf("\n macro name is: %s",str);
 
     if (!isalpha(*str)){ /* Check if the first character is alphabetic*/
         print_external_error(illegal_name, file);

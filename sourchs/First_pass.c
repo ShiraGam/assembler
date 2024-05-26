@@ -84,7 +84,6 @@ int first_pass_main(struct macro_linked_list * list, int * error_exist,struct fi
             return INTERNAL_ERROR;
          }
         found_EOF=fill_and_check(buffer,file_am);
-	printf("line %d: %s",file->line,buffer);
         if (feof(file_am)){
             found_EOF = TRUE;
         }
