@@ -38,7 +38,7 @@ void coding_direct(struct file_status * file,errors_status * errors,char* operan
 int contains_comma(char **ptp);
 
 
-/*remember to delate structer!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
 /**
  * @brief Sets a range of bits in a bit field to a specified value.
  *
